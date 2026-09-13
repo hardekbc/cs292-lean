@@ -1,7 +1,8 @@
 # CS 292C Intro to the Lean Interactive Theorem Prover
 
 Prof. Ben Hardekopf
-UCSB Computer Science Dept
+
+UC Santa Barbara Computer Science Dept
 
 ## Goal
 
