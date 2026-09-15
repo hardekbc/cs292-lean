@@ -5,33 +5,12 @@
 import Course.CourseLib
 import AutograderLib
 
-topic::P1
 /-
   ## INSTRUCTIONS
 
-  Prove that `qsort` terminates. You may add a `termination_by` clause if you
-  think it makes sense to do so.
--/
-
-def qsort : List ℕ → List ℕ
-  | [] => []
-  | x :: xs =>
-    let ℓs := xs.partition (· ≤ x)
-    qsort ℓs.1 ++ [x] ++ qsort ℓs.2
-decreasing_by
-  sorry
-  sorry
-
-end_topic P1
-
-
-topic::P2
-/-
-  ## INSTRUCTIONS
-
-  We revisit the tree-based map from the `L03` exercises to finish proving
-  correctness. The theorems from `L03` establish that the `BstMap` functions are
-  consistent with each other, but do not prove that insertion preserves the
+  We revisit the tree-based map from the `L03_2` exercises to finish proving
+  correctness. The theorems from `L03_2` establish that the `BstMap` functions
+  are consistent with each other, but do not prove that insertion preserves the
   binary search tree property. Fill in the `sorry` in the theorems below to
   establish that fact.
 -/
@@ -97,5 +76,3 @@ theorem insert_preserves_bstinv
   sorry
 
 end BstMap
-
-end_topic P2

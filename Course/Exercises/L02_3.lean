@@ -1,0 +1,54 @@
+/-
+  # EXERCISES FOR `L02`
+
+  Some of the exercises are adapted from "Theorem Proving in Lean" and Velleman's "How to Prove It"
+
+  ## INSTRUCTIONS
+
+  Replace the `sorry` in each exercise with a proof of the given proposition.
+-/
+
+import Course.CourseLib
+import AutograderLib
+
+variable {α : Type} (P Q : α → Prop) (A B C : Set α)
+
+@[autogradedProof 1]
+theorem ex3_1 : (∀ x, P x ∧ Q x) ↔ (∀ x, P x) ∧ (∀ x, Q x) := by
+  sorry
+
+@[autogradedProof 1]
+theorem ex3_2 : (∀ x, P x → Q x) → (∀ x, P x) → (∀ x, Q x) := by
+  sorry
+
+@[autogradedProof 1]
+theorem ex3_3 : (∀ x, P x) ∨ (∀ x, Q x) → ∀ x, P x ∨ Q x := by
+  sorry
+
+@[autogradedProof 1]
+theorem ex3_4 : (∃ x, P x ∨ Q x) ↔ (∃ x, P x) ∨ (∃ x, Q x) := by
+  sorry
+
+@[autogradedProof 1]
+theorem ex3_5 : (∀ x, P x) ↔ ¬ (∃ x, ¬ P x) := by
+  sorry
+
+@[autogradedProof 1]
+theorem ex3_6 : (∃ x, P x) ↔ ¬ (∀ x, ¬ P x) := by
+  sorry
+
+@[autogradedProof 1]
+theorem ex3_7 : (¬ ∃ x, P x) ↔ (∀ x, ¬ P x) := by
+  sorry
+
+@[autogradedProof 1]
+theorem ex3_8 : (¬ ∀ x, P x) ↔ (∃ x, ¬ P x) := by
+  sorry
+
+@[autogradedProof 1]
+theorem ex3_9 : A ⊆ B ↔ A \ B = ∅ := by
+  sorry
+
+@[autogradedProof 1]
+theorem ex3_10 : C ⊆ A ∪ B ↔ C \ A ⊆ B := by
+  sorry
