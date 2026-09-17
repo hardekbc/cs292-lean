@@ -90,14 +90,39 @@ def RunOrBail(cmd: str) -> str:
 # write out a Comparator config.json for the given theorem
 def WriteConfig(thm: str):
     config: Dict[str, List[Dict[str, Any]]] = {
-        "challenge_module": "Ref.lean",
-        "solution_module": "Submission.lean",
+        "challenge_module": "Ref",
+        "solution_module": "Submission",
         "theorem_names": [thm],
         "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
         "enable_nanoda": False,
     }
     with open("config.json", "w") as out:
         out.write(json.dumps(config))
+
+
+# extract the reason for a Comparator failure from its output
+def ExtractReason(error: str) -> str:
+    if error.find("Illegal axiom detected"):
+        if error.find("sorryAx"):
+            return "uses `sorry`"
+        else:
+            return "uses illegal axiom"
+    elif (
+        error.find("theorem statement do not match")
+        or error.find("constant kind don't match")
+        or error.find("does not match between challenge and target")
+        or error.find("is not a theorem")
+        or error.find("is not a definition")
+    ):
+        return "proves incorrect statement"
+    elif error.find("Child exited with"):
+        return "failed to build"
+    elif error.find("Running Lean default kernel on solution") and not error.find(
+        "Lean default kernel accepts the solution"
+    ):
+        return "Lean kernel rejected the solution"
+    else:
+        return "unknown reason"
 
 
 # grade a specific theorem
@@ -114,7 +139,7 @@ def Grade(thm: str):
             {
                 "name": thm,
                 "status": "failed",
-                "output": result[1],
+                "output": ExtractReason(result[1]),
             }
         )
     else:
@@ -142,7 +167,7 @@ RunOrBail(f"cp {student_submission_dir}/{file} {source_dir}/Submission.lean")
 RunOrBail(f"cp {source_dir}/Course/Exercises/{file} {source_dir}/Ref.lean")
 
 # do testing
-thms = RunOrBail(f"cat {source_dir}/theorem_names.txt").split("\n")
+thms = RunOrBail(f"cat {source_dir}/theorem_names.txt").split()
 for thm in thms:
     Grade(thm)
 
