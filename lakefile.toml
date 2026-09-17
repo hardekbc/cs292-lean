@@ -14,9 +14,9 @@ scope = "leanprover-community"
 rev = "v4.33.1"
 
 [[require]]
-name = "lean4-autograder-main"
-scope = "robertylewis"
-rev = "v4.33.0"
+name = "comparator"
+scope = "leanprover-community"
+rev = "master"
 
 [[lean_lib]]
 name = "Course"

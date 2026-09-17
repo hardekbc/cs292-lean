@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -ex
+
+cd /autograder/source
+
+cat >> lakefile.toml <<EOF
+name = "comparatortest"
+version = "0.1.0"
+
+[[lean_lib]]
+name = "Solution"
+
+[[lean_lib]]
+name = "Challenge"
+EOF
+
+python3 grader.py
