@@ -3,7 +3,6 @@
 -/
 
 import Course.CourseLib
-import AutograderLib
 
 /-
   ## INSTRUCTIONS

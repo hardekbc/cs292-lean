@@ -10,7 +10,6 @@
 import Course.CourseLib
 import Course.L03_Sorting
 import Course.L04_SortingDeux
-import AutograderLib
 
 /-
   Make available the `sorted` predicate and various useful lemmas about the
@@ -28,7 +27,6 @@ def select_min (n : ℕ) (ℓ : List ℕ) : ℕ × (List ℕ) :=
   let min := (n :: ℓ).minimum_of_length_pos (by simp)
   (min, (n :: ℓ).erase min)
 
-@[autogradedProof 1]
 lemma select_min_size
   (n : ℕ) (ℓ : List ℕ)
   : let (_, ℓ₁) := select_min n ℓ
@@ -45,7 +43,6 @@ termination_by ℓ => ℓ.length
 decreasing_by
   sorry
 
-@[autogradedProof 1]
 lemma select_min_perm
   (n : ℕ) (ℓ : List ℕ)
   : let (n₁, ℓ₁) := select_min n ℓ
@@ -53,7 +50,6 @@ lemma select_min_perm
 := by
   sorry
 
-@[autogradedProof 1]
 lemma select_min_smallest
   (n : ℕ) (ℓ : List ℕ)
   : let (n₁, _) := select_min n ℓ
@@ -61,14 +57,12 @@ lemma select_min_smallest
 := by
   sorry
 
-@[autogradedProof 1]
 lemma selection_sort_perm
   (ℓ : List ℕ)
   : (selection_sort ℓ).Perm ℓ
 := by
   sorry
 
-@[autogradedProof 1]
 lemma selection_sort_sorted
   (ℓ : List ℕ)
   : sorted (selection_sort ℓ)

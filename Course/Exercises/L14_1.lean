@@ -10,7 +10,6 @@
 import Course.CourseLib
 import Course.L03_Sorting
 import Course.L04_SortingDeux
-import AutograderLib
 
 /-
   Make available the `sorted` predicate and various useful lemmas about the
@@ -24,7 +23,6 @@ open INSERTION_SORT_P2 (sorted empty_sorted singleton_sorted head_sorted
   -----------------------------------------------------------
 -/
 
-@[autogradedProof 1]
 theorem split_correct
   (ℓ : List ℕ)
   : let (ℓ₁, ℓ₂) := split ℓ
@@ -32,28 +30,24 @@ theorem split_correct
 := by
   sorry
 
-@[autogradedProof 1]
 lemma merge_perm
   (ℓ₁ ℓ₂ : List ℕ)
   : (merge ℓ₁ ℓ₂).Perm (ℓ₁ ++ ℓ₂)
 := by
   sorry
 
-@[autogradedProof 1]
 lemma merge_sorted
   {ℓ₁ ℓ₂ : List ℕ}
   : sorted ℓ₁ → sorted ℓ₂ → sorted (merge ℓ₁ ℓ₂)
 := by
   sorry
 
-@[autogradedProof 1]
 lemma merge_sort_perm
   (ℓ : List ℕ)
   : (merge_sort ℓ).Perm ℓ
 := by
   sorry
 
-@[autogradedProof 1]
 lemma merge_sort_sorted
   (ℓ : List ℕ)
   : sorted (merge_sort ℓ)

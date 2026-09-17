@@ -9,7 +9,6 @@
 
 import Course.CourseLib
 import Course.L11_DFA_Redux
-import AutograderLib
 
 /-
   Nondeterministic finite automata. The alphabet can be any type `α` as long as
@@ -162,7 +161,6 @@ def L (M : Nfa α) : Language α :=
 
 /- ----- accepts_is_correct ----- -/
 
-@[autogradedProof 1]
 theorem accepts_is_correct
   {M : Nfa α} {w : List α}
   : M.accepts_prop w ↔ M.accepts w
@@ -171,7 +169,6 @@ theorem accepts_is_correct
 
 /- ----- union_is_correct ----- -/
 
-@[autogradedProof 1]
 theorem union_is_correct
   {M1 M2 : Nfa α}
   : M1.L ∪ M2.L = (M1.union M2).L
@@ -180,7 +177,6 @@ theorem union_is_correct
 
 /- ----- concat_is_correct ----- -/
 
-@[autogradedProof 1]
 theorem concat_is_correct
   {M1 M2 : Nfa α}
   : M1.L * M2.L = (M1.concat M2).L
@@ -189,7 +185,6 @@ theorem concat_is_correct
 
 /- ----- star_is_correct ----- -/
 
-@[autogradedProof 1]
 theorem star_is_correct
   {M : Nfa α}
   : kleene_star M.L = M.star.L

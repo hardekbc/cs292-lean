@@ -3,7 +3,6 @@
 -/
 
 import Course.CourseLib
-import AutograderLib
 
 /-
   ## INSTRUCTIONS
@@ -58,7 +57,6 @@ inductive BstInv : BstMap α β → Prop
   **NEW**
   It will be helpful to prove that inserting a (key, value) pair into a `BstMap`
   preserves the properties of other (key, value) pairs -/
-@[autogradedProof 1]
 lemma insert_preserves_pred
   (bst : BstMap α β) (key : α) (val : β) (P : α → β → Prop)
   : every_node_prop P bst → P key val → every_node_prop P (bst.insert key val)
@@ -68,7 +66,6 @@ lemma insert_preserves_pred
 /-
   **NEW**
   Here is the main theorem that says `insert` preserves the `BstInv` property -/
-@[autogradedProof 1]
 theorem insert_preserves_bstinv
   (bst : BstMap α β) (key : α) (val : β)
   : BstInv bst → BstInv (insert bst key val)

@@ -8,16 +8,13 @@
 
 import Course.CourseLib
 import Course.L08_ExpLang
-import AutograderLib
 
-@[autogradedProof 1]
 theorem HasType.deterministic
   {Γ : Env} {e : Exp} {τ₁ τ₂ : Ty}
   : HasType Γ e τ₁ → HasType Γ e τ₂ → τ₁ = τ₂
 := by
   sorry
 
-@[autogradedProof 1]
 theorem BigstepE.deterministic
   {σ : State} {e : Exp} {v₁ v₂ : Value}
   : BigstepE σ e v₁ → BigstepE σ e v₂ → v₁ = v₂
@@ -51,7 +48,6 @@ inductive BigstepS : State → Stmt → State → Prop
   | whiledo_ff {σ g body} :
       BigstepE σ g (.bool false) → BigstepS σ (.whiledo g body) σ
 
-@[autogradedProof 1]
 theorem BigstepS.deterministic
   {σ₁ σ₂ σ₃ : State} {s : Stmt}
   : BigstepS σ₁ s σ₂ → BigstepS σ₁ s σ₃ → σ₂ = σ₃
@@ -66,21 +62,18 @@ inductive Result
 def clocked_eval (σ : State) (fuel : ℕ) (s : Stmt) : Result :=
   sorry -- FILL IN FROM `L08`
 
-@[autogradedProof 1]
 lemma clocked_eval.monotone
   {σ₁ σ₂ : State} {s : Stmt} {n₁ : ℕ} (n₂ : ℕ)
   : clocked_eval σ₁ n₁ s = .normal σ₂ → n₁ ≤ n₂ → clocked_eval σ₁ n₂ s = .normal σ₂
 := by
   sorry
 
-@[autogradedProof 1]
 theorem stmt_eval_matches_semantics
   {σ₁ σ₂ : State} {s : Stmt}
   : BigstepS σ₁ s σ₂ → ∃ n, clocked_eval σ₁ n s = (.normal σ₂)
 := by
   sorry
 
-@[autogradedProof 1]
 theorem stmt_semantics_matches_eval
   {σ₁ σ₂ : State} {s : Stmt}
   : (∃ n, clocked_eval σ₁ n s = (.normal σ₂)) → BigstepS σ₁ s σ₂

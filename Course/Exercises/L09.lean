@@ -7,7 +7,6 @@
 
 import Course.CourseLib
 import Course.L09_DFA
-import AutograderLib
 
 /-
   -----------------------------------------------------------
@@ -89,18 +88,15 @@ lemma mul_eq_append {L₁ L₂ : Language α} {w : List α}
   : w ∈ L₁ * L₂ ↔ w ∈ Set.image2 (· ++ ·) L₁ L₂
 := by rfl
 
-@[autogradedProof 1]
 theorem nullable_is_correct {R : Re α} : R.nullable ↔ [] ∈ R.L := by
   sorry
 
-@[autogradedProof 1]
 theorem deriv_is_correct
   {R : Re α} {a : α} [DecidableEq α]
   : (R.deriv a).L = { w | a :: w ∈ R.L }
 := by
   sorry
 
-@[autogradedProof 1]
 theorem accepts_is_correct
   {R : Re α} {w : List α} [DecidableEq α]
   : w ∈ R.L ↔ R.accepts w

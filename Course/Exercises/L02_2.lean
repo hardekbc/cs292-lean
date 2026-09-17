@@ -9,22 +9,17 @@
 -/
 
 import Course.CourseLib
-import AutograderLib
 
 variable {α : Type} (A B C : Set α) (x : α)
 
-@[autogradedProof 1]
 theorem ex2_1 : x ∈ A \ (A ∩ B) ↔ x ∈ A \ B := by
   sorry
 
-@[autogradedProof 1]
 theorem ex2_2 : x ∈ A ∪ (B ∩ C) ↔ x ∈ (A ∪ B) ∩ (A ∪ C) := by
   sorry
 
-@[autogradedProof 1]
 theorem ex2_3 : x ∈ (A ∪ B) \ C ↔ x ∈ (A \ C) ∪ (B \ C) := by
   sorry
 
-@[autogradedProof 1]
 theorem ex2_4 : x ∈ A ∪ (B \ C) ↔ x ∈ (A ∪ B) \ (C \ A) := by
   sorry

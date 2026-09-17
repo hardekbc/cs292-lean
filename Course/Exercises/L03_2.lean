@@ -10,7 +10,6 @@
 -/
 
 import Course.CourseLib
-import AutograderLib
 
 variable {α : Type}
 
@@ -63,7 +62,6 @@ def insert : BstMap α β → α → β → BstMap α β
 
 /-
   An empty map doesn't contain any key -/
-@[autogradedProof 1]
 theorem contains_empty
   (key₁: α)
   : contains (.empty (α := α) (β := β)) key₁ = false
@@ -72,7 +70,6 @@ theorem contains_empty
 
 /-
   A map s.t. a key has been inserted contains that key -/
-@[autogradedProof 1]
 theorem contains_insert
   (bst : BstMap α β) (key₁ : α) (val : β)
   : contains (.insert bst key₁ val) key₁ = true
@@ -81,7 +78,6 @@ theorem contains_insert
 
 /-
   If looking for a key, inserting a _different_ key doesn't affect the result -/
-@[autogradedProof 1]
 theorem contains_preserves
   (bst : BstMap α β) (key₁ key₂ : α) (val : β)
   : key₁ ≠ key₂ → contains (insert bst key₁ val) key₂ = contains bst key₂
@@ -90,7 +86,6 @@ theorem contains_preserves
 
 /-
   Looking up a value in an empty map returns the default value -/
-@[autogradedProof 1]
 theorem lookup_insert_empty
   (key₁ : α) (default : β)
   : lookup (.empty (α := α) (β := β)) key₁ default = default
@@ -100,7 +95,6 @@ theorem lookup_insert_empty
 /-
   Looking up a value for a key that we've inserted returns the value that we
   inserted -/
-@[autogradedProof 1]
 theorem lookup_insert_same_key
   (bst : BstMap α β) (key₁ : α) (val default : β)
   : lookup (insert bst key₁ val) key₁ default = val
@@ -110,7 +104,6 @@ theorem lookup_insert_same_key
 /-
   The result of looking up a value for one key is not affected by inserting a
   value with a _different_ key -/
-@[autogradedProof 1]
 theorem lookup_insert_diff_key
   (bst : BstMap α β) (key₁ key₂ : α) (val default : β)
   : key₁ ≠ key₂ → lookup (insert bst key₁ val) key₂ default = lookup bst key₂ default

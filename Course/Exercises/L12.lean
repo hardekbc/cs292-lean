@@ -7,7 +7,6 @@
 
 import Course.CourseLib
 import Course.L12_DExpLang
-import AutograderLib
 
 inductive DStmt where
 /-
@@ -37,21 +36,18 @@ inductive BigstepS : DState → DStmt → DState → Prop
 def clocked_eval (σ : DState) (fuel : ℕ) (s : DStmt) : Option DState :=
   sorry
 
-@[autogradedProof 1]
 lemma clocked_eval.monotone
   {σ₁ σ₂ : DState} {s : DStmt} {n₁ : ℕ} (n₂ : ℕ)
   : clocked_eval σ₁ n₁ s = .some σ₂ → n₁ ≤ n₂ → clocked_eval σ₁ n₂ s = .some σ₂
 := by
   sorry
 
-@[autogradedProof 1]
 theorem stmt_eval_matches_semantics
   {σ₁ σ₂ : DState} {s : DStmt}
   : BigstepS σ₁ s σ₂ → ∃ n, clocked_eval σ₁ n s = (.some σ₂)
 := by
   sorry
 
-@[autogradedProof 1]
 theorem stmt_semantics_matches_eval
   {σ₁ σ₂ : DState} {s : DStmt}
   : (∃ n, clocked_eval σ₁ n s = (.some σ₂)) → BigstepS σ₁ s σ₂

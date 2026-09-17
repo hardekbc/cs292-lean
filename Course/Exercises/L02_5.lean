@@ -9,7 +9,6 @@
 -/
 
 import Course.CourseLib
-import AutograderLib
 
 variable {α β γ : Type} (f : α → β)
 
@@ -17,14 +16,12 @@ def inj       (f : α → β) := ∀ (x y : α), f x = f y → x = y
 def surj      (f : α → β) := ∀ (y : β), ∃ (x : α), f x = y
 def bijection (f : α → β) := inj f ∧ surj f
 
-@[autogradedProof 1]
 theorem ex5_1
   (f : α → β) (g : β → γ)
   : surj f → surj g → surj (g ∘ f)
 := by
   sorry
 
-@[autogradedProof 1]
 theorem ex5_2
   (f : α → β) (g : β → α)
   (h : g ∘ f = id)
@@ -40,7 +37,6 @@ theorem ex5_2
 #check @mul_eq_mul_left_iff
 #check @mul_div_cancel₀
 
-@[autogradedProof 1]
 theorem ex5_3
   (a b : ℝ) (f : ℝ → ℝ)
   (h1 : f = fun z => a*z + b) (h2 : a ≠ 0)

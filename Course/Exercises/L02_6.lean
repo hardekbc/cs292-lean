@@ -9,7 +9,6 @@
 -/
 
 import Course.CourseLib
-import AutograderLib
 
 abbrev even (n : ℕ) :=
   ∃ (k : ℕ), n = 2 * k
@@ -17,7 +16,6 @@ abbrev even (n : ℕ) :=
 abbrev odd (n : ℕ) :=
   ∃ (k : ℕ), n = 2 * k + 1
 
-@[autogradedProof 1]
 theorem ex6_1 : ∀ n, even n ∨ odd n := by
   sorry
 
@@ -34,6 +32,5 @@ def fact (n : ℕ) :=
   if n = 0 then 1
   else n * fact (n-1)
 
-@[autogradedProof 1]
 theorem ex6_2 : ∀ (n : Nat), fact n ≥ 1 := by
   sorry

@@ -5,6 +5,7 @@ import json
 import subprocess
 import sys
 import glob
+import os
 
 from os.path import basename
 from typing import Dict, List, Any, Tuple
@@ -46,6 +47,7 @@ results: Dict[str, List[Dict[str, Any]]] = {
 
 # bails out of the grader early with an error message
 def Bail(msg: str):
+    print(f"bailing: {msg}")
     results["output"] = msg
     with open(results_file, "w") as out:
         out.write(json.dumps(results))
@@ -59,26 +61,17 @@ def BailOnFailure(cmd_out, msg: str):
 
 
 # runs the specified command in the shell
-def Run(
-    cmd: str, *args, timed=None, stdout=subprocess.PIPE, **kwargs
-) -> Tuple[bool, str]:
+def Run(cmd: str) -> Tuple[bool, str]:
     print(f"Run: {cmd}")
-    try:
-        proc = subprocess.run(
-            cmd,
-            *args,
-            timeout=timed,
-            shell=True,
-            stdout=stdout,
-            stderr=subprocess.PIPE,
-            **kwargs,
-        )
-    except subprocess.TimeoutExpired:
-        # the process has timed out, return the timeout message
-        return (False, f"The process has timed out after {timed} seconds")
+    proc = subprocess.run(
+        cmd,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
 
-    # collect the output only if it is not redirected
-    output = proc.stdout + b"\n" if stdout == subprocess.PIPE else b""
+    # collect the output
+    output = proc.stdout + b"\n"
 
     if proc.returncode != 0:  # error
         output += proc.stderr
@@ -88,14 +81,14 @@ def Run(
 
 
 # run command and bail on failure
-def RunOrBail(cmd: str, *args, timed=None, stdout=subprocess.PIPE, **kwargs) -> str:
-    result = Run(cmd, args, timed, stdout, kwargs)
-    BailOnFailure(result)
-    result[1]
+def RunOrBail(cmd: str) -> str:
+    result = Run(cmd)
+    BailOnFailure(result, "")
+    return result[1]
 
 
 # write out a Comparator config.json for the given theorem
-def WriteConfig(thm: String):
+def WriteConfig(thm: str):
     config: Dict[str, List[Dict[str, Any]]] = {
         "challenge_module": "Ref.lean",
         "solution_module": "Submission.lean",
@@ -108,7 +101,7 @@ def WriteConfig(thm: String):
 
 
 # grade a specific theorem
-def Grade(thm: String):
+def Grade(thm: str):
     print(f"Grade: {thm}")
     WriteConfig(thm)
     result = Run(
@@ -121,7 +114,7 @@ def Grade(thm: String):
             {
                 "name": thm,
                 "status": "failed",
-                "output": results[1],
+                "output": result[1],
             }
         )
     else:
@@ -137,9 +130,9 @@ def Grade(thm: String):
 # get the submitted Lean file's name
 def GetSubmittedFilename() -> str:
     files = glob.glob(f"{student_submission_dir}/*.lean")
-    if files.__len__ != 1:
+    if len(files) != 1:
         Bail("exactly one *.lean file should be submitted")
-    basename(files[0])
+    return basename(files[0])
 
 
 # prep
