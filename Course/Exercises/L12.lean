@@ -8,6 +8,8 @@
 import Course.CourseLib
 import Course.L12_DExpLang
 
+open DExpLang
+
 inductive DStmt where
 /-
   ## INSTRUCTIONS

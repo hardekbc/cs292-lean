@@ -6,6 +6,7 @@
 -/
 
 import Course.CourseLib
+namespace L18_Ex_DExpLang
 
 topic::BEFORE
 /-

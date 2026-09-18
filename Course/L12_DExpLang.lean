@@ -7,6 +7,7 @@
 -/
 
 import Course.CourseLib
+namespace DExpLang
 
 /-
   -----------------------------------------------------------

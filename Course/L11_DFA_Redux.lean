@@ -5,6 +5,7 @@
 -/
 
 import Course.CourseLib
+namespace Dfa_Redux
 
 /-
   -----------------------------------------------------------

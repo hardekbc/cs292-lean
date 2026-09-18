@@ -77,12 +77,6 @@ lemma select_min_smallest
 := by
   sorry
 
-theorem select_min_correct
-  (n : ℕ) (ℓ : List ℕ)
-  : let (n₁, ℓ₁) := select_min n ℓ
-    (∀ m ∈ (n :: ℓ), n₁ ≤ m) ∧ (n₁ :: ℓ₁).Perm (n :: ℓ)
-:= ⟨select_min_smallest n ℓ, select_min_perm n ℓ⟩
-
 lemma selection_sort_perm
   (ℓ : List ℕ)
   : (selection_sort ℓ).Perm ℓ
@@ -94,9 +88,3 @@ lemma selection_sort_sorted
   : sorted (selection_sort ℓ)
 := by
   sorry
-
-theorem selection_sort_correct
-  (ℓ : List ℕ)
-  : let ℓ' := selection_sort ℓ
-    sorted ℓ' ∧ ℓ'.Perm ℓ
-:= ⟨selection_sort_sorted ℓ, selection_sort_perm ℓ⟩

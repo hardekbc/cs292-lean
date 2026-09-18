@@ -3,6 +3,7 @@
 -/
 
 import Course.CourseLib
+namespace L14_Sorting
 
 @[grind, simp]
 def insertion_sort (ℓ : List ℕ) : List ℕ :=

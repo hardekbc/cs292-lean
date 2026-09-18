@@ -7,6 +7,7 @@
 -/
 
 import Course.CourseLib
+namespace L18_Ex_DFA
 
 structure Dfa
   (α : Type) [Fintype α] [Nonempty α]

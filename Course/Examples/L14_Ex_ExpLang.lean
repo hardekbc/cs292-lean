@@ -3,6 +3,7 @@
 -/
 
 import Course.CourseLib
+namespace L14_ExpLang
 
 @[grind cases, aesop safe cases]
 inductive Ty

@@ -10,6 +10,8 @@
 import Course.CourseLib
 import Course.L11_DFA_Redux
 
+open Dfa_Redux
+
 /-
   Nondeterministic finite automata. The alphabet can be any type `α` as long as
   it is finite and nonempty. The states can be any type `σ` as long as it is

@@ -3,6 +3,7 @@
 -/
 
 import Course.CourseLib
+namespace L14_DFA
 
 @[grind cases]
 structure Dfa
