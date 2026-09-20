@@ -66,17 +66,9 @@ def fold {α : Type} (ℓ : MyList) (f : α → ℤ → α) (init : α) : α :=
 /-
   ## INSTRUCTIONS
   For all definitions below here, use your `fold` definition to define the
-  functions rather than direct recursion
+  functions rather than direct recursion (you may also use the functions you
+  have already defined)
 -/
-
-/-
-  Returns `ℓ₁ ++ ℓ₂` -/
-def append (ℓ₁ ℓ₂ : MyList) : MyList :=
-  sorry
-
-/-- info: true -/
-#guard_msgs in
-#eval ℓ₂.append ℓ₃ == ℓ₁
 
 /-
   Returns the reverse of `ℓ` -/
@@ -86,6 +78,15 @@ def reverse (ℓ : MyList) : MyList :=
 /-- info: true -/
 #guard_msgs in
 #eval ℓ₁.reverse == ℓ₄
+
+/-
+  Returns `ℓ₁ ++ ℓ₂` -/
+def append (ℓ₁ ℓ₂ : MyList) : MyList :=
+  sorry
+
+/-- info: true -/
+#guard_msgs in
+#eval ℓ₂.append ℓ₃ == ℓ₁
 
 /-
   Returns whether any of the elements satisfy the predicate -/
@@ -100,7 +101,6 @@ def any (ℓ : MyList) (P : ℤ → Bool) : Bool :=
 #guard_msgs in
 #eval ℓ₁.any (fun z => z = 10)
 
-
 /-
   Returns whether all of the elements satisfy the predicate -/
 def all (ℓ : MyList) (P : ℤ → Bool) : Bool :=
@@ -109,7 +109,6 @@ def all (ℓ : MyList) (P : ℤ → Bool) : Bool :=
 /-- info: true -/
 #guard_msgs in
 #eval ℓ₁.all (fun z => z < 10)
-
 
 /-- info: false -/
 #guard_msgs in
@@ -135,7 +134,8 @@ topic::P3
   Fill in the function so that it outputs a list of pairs `(str, n)` s.t. `n` is
   the number of times `str` appears in the input list, in the order that `str`
   first appears in the input list. The `#guard_msgs` test immediately below
-  should pass with no errors. -/
+  should pass with no errors. You may define nested helper functions if you find
+  them helpful. -/
 def word_count (ℓ : List String) : List (String × ℕ) :=
   sorry
 
@@ -245,16 +245,21 @@ def map (t : Tree) (f : ℕ → ℕ) : Tree :=
 #eval t₁.map (fun z => 2*z) == t₂
 
 /-
-  The fold function on trees -/
-def fold {α : Type} (t : Tree) (f : α → ℕ → α) (init : α) : α :=
+  The fold function on trees. Now `f` takes three arguments: the result of
+  folding the left subtree, the result of folding the right subtree, and the
+  value at the node. `init` is now a function `leaf` that takes the value at a
+  leaf. -/
+def fold {α : Type} (t : Tree) (f : α → α → ℕ → α) (leaf : ℕ → α) : α :=
   sorry
 
 /-- info: 91 -/
 #guard_msgs in
-#eval t₁.fold (fun acc n => acc + n) 0
+#eval t₁.fold (fun accₗ accᵣ n => accₗ + accᵣ + n) id
 
 /-
-  Outputs a list of all paths from the root of the tree to a leaf -/
+  Outputs a list of all paths from the root of the tree to a leaf (using the
+  value of each node as its identifier). HINT: use the `fold` that you
+  implemented above. -/
 def paths (t : Tree) : List (List ℕ) :=
   sorry
 
