@@ -16,6 +16,11 @@ def inj       (f : α → β) := ∀ (x y : α), f x = f y → x = y
 def surj      (f : α → β) := ∀ (y : β), ∃ (x : α), f x = y
 def bijection (f : α → β) := inj f ∧ surj f
 
+/-
+  HINT: remember that the `rw` tactic requires an exact match, so rewriting a
+  statement into a different form may be necessary (e.g., using
+  `Function.comp`) -/
+
 theorem ex5_1
   (f : α → β) (g : β → γ)
   : surj f → surj g → surj (g ∘ f)

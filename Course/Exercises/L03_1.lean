@@ -31,6 +31,13 @@ def sum : List ℕ → ℕ
   | [] => 0
   | x :: xs => x + sum xs
 
+/-
+  HINT: the following theorems may be useful in some of the exercises below. You
+  may also wish to use the results of one exercise in a following exercise. -/
+#check List.nil_append
+#check List.reverse_cons
+#check Nat.right_eq_add
+
 theorem ex3_1
   (ℓ : List ℕ) (n : ℕ)
   : sum (snoc ℓ n) = n + sum ℓ

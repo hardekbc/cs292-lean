@@ -11,6 +11,11 @@ import Course.CourseLib
   think it makes sense to do so.
 -/
 
+/-
+  HINT: some potentially helpful theorems -/
+#check List.partition_eq_filter_filter
+#check List.length_filter_le
+
 def qsort : List ℕ → List ℕ
   | [] => []
   | x :: xs =>

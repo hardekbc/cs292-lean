@@ -21,9 +21,10 @@ variable {α : Type}
 
 /-
   A map implemented as a binary search tree. We require that the type of map
-  keys `α` have a linear order. The intended invariant is that all keys
-  _smaller_ than the current key are in the left subtree and all keys _greater_
-  than the current key are in the right subtree. -/
+  keys `α` have a linear order (i.e., every element is comparable to every other
+  element). The intended invariant is that all keys _smaller_ than the current
+  key are in the left subtree and all keys _greater_ than the current key are in
+  the right subtree. -/
 inductive BstMap (α β : Type) [LinearOrder α] where
   | empty
   | node (left right : BstMap α β) (key : α) (val : β)
@@ -41,17 +42,6 @@ def contains : BstMap α β → α → Bool
     else right.contains key
 
 /-
-  Look up a key in the map and return its value, returning a default value if
-  the key is not in the map. Note that we're pattern matching on three things
-  simultaneously, i.e., all three parameters of the function. -/
-def lookup : BstMap α β → α → β → β
-  | .empty, _, default => default
-  | .node left right k v, key, default =>
-    if k == key then v
-    else if key < k then left.lookup key default
-    else right.lookup key default
-
-/-
   Return a new map with the given key mapped to the given value -/
 def insert : BstMap α β → α → β → BstMap α β
   | .empty, key, val => .node .empty .empty key val
@@ -59,6 +49,15 @@ def insert : BstMap α β → α → β → BstMap α β
     if k = key then .node left right key val
     else if key < k then .node (left.insert key val) right k v
     else .node left (right.insert key val) k v
+
+/-
+  HINT: you may find the following theorems useful -/
+#check BEq.refl
+#check Bool.if_true_left
+#check beq_iff_eq
+#check if_pos
+#check if_neg
+
 
 /-
   An empty map doesn't contain any key -/
@@ -81,32 +80,6 @@ theorem contains_insert
 theorem contains_preserves
   (bst : BstMap α β) (key₁ key₂ : α) (val : β)
   : key₁ ≠ key₂ → contains (insert bst key₁ val) key₂ = contains bst key₂
-:= by
-  sorry
-
-/-
-  Looking up a value in an empty map returns the default value -/
-theorem lookup_insert_empty
-  (key₁ : α) (default : β)
-  : lookup (.empty (α := α) (β := β)) key₁ default = default
-:= by
-  sorry
-
-/-
-  Looking up a value for a key that we've inserted returns the value that we
-  inserted -/
-theorem lookup_insert_same_key
-  (bst : BstMap α β) (key₁ : α) (val default : β)
-  : lookup (insert bst key₁ val) key₁ default = val
-:= by
-  sorry
-
-/-
-  The result of looking up a value for one key is not affected by inserting a
-  value with a _different_ key -/
-theorem lookup_insert_diff_key
-  (bst : BstMap α β) (key₁ key₂ : α) (val default : β)
-  : key₁ ≠ key₂ → lookup (insert bst key₁ val) key₂ default = lookup bst key₂ default
 := by
   sorry
 

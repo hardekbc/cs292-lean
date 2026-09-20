@@ -35,7 +35,7 @@ def select_min (n : ℕ) (ℓ : List ℕ) : ℕ × (List ℕ) :=
   (min, (n :: ℓ).erase min)
 
 /-
-  A useful theorem for proving `select_min_size` -/
+  HINT: A useful theorem for proving `select_min_size` -/
 #check List.minimum_of_length_pos_mem
 
 /-
@@ -59,9 +59,18 @@ decreasing_by
   sorry
 
 /-
-  Some useful theorems for the lemmas below -/
+  HINT: Some useful theorems for the lemmas below (along with the theorems
+  already suggested in the `L04_1` exercises) -/
 #check List.minimum_of_length_pos_mem
 #check List.minimum_of_length_pos_le_of_mem
+#check List.perm_cons_erase
+
+/-
+  HINT: sometimes `simp` will simplify things _too_ much, applying too many
+  rewrites that transform the target into something that our theorems don't
+  apply to. Remember that we can use `simp only [...]` to apply only the
+  theorems we want, and in particular we can use `simp only` to apply no
+  theorems at all, only the built-in `simp` simplications. -/
 
 lemma select_min_perm
   (n : ℕ) (ℓ : List ℕ)

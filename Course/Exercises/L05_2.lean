@@ -64,6 +64,19 @@ lemma insert_preserves_pred
   sorry
 
 /-
+  HINT: some potentially helpful theorems. We can use the `PartialOrder` theorem
+  because we require `LinearOrder α` when we define `BstMap`, and any linear
+  order is automatically also a partial order. -/
+#check if_pos
+#check if_neg
+#check PartialOrder.le_antisymm
+
+/-
+  HINT: remember that inductive type constructors (e.g., the constructors
+  `BstInv.{empty_inv, node_inv}`) are just functions, and can be passed to
+  `simp` just like any function, e.g., `simp [BstInv.node_inv]` -/
+
+/-
   **NEW**
   Here is the main theorem that says `insert` preserves the `BstInv` property -/
 theorem insert_preserves_bstinv
