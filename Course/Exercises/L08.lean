@@ -12,12 +12,19 @@ import Course.L08_ExpLang
   Determinism is a generally useful property to have; we can prove that both
   `HasType` and `BigstepE` are deterministic -/
 
+/-
+  HINT: for each of the following two proofs, many cases are redundant and can
+  be collapsed together if you architect the proof the right way -/
+
 theorem HasType.deterministic
   {Γ : Env} {e : Exp} {τ₁ τ₂ : Ty}
   : HasType Γ e τ₁ → HasType Γ e τ₂ → τ₁ = τ₂
 := by
   sorry
 
+/-
+  HINT: Remember about `generalizing` if the induction hypothesis needs to be
+  strengthened -/
 theorem BigstepE.deterministic
   {σ : State} {e : Exp} {v₁ v₂ : Value}
   : BigstepE σ e v₁ → BigstepE σ e v₂ → v₁ = v₂
@@ -64,6 +71,13 @@ inductive BigstepS : State → Stmt → State → Prop
   | whiledo_ff {σ g body} :
       BigstepE σ g (.bool false) → BigstepS σ (.whiledo g body) σ
 
+/-
+  HINT: you can annotate the constructors of `BigstepS` for `simp` as shown for
+  `HasType` and `BigstepE` in `L08_ExpLang` -/
+
+/-
+  HINT: Remember about `generalizing` if the induction hypothesis needs to be
+  strengthened -/
 theorem BigstepS.deterministic
   {σ₁ σ₂ σ₃ : State} {s : Stmt}
   : BigstepS σ₁ s σ₂ → BigstepS σ₁ s σ₃ → σ₂ = σ₃
@@ -83,24 +97,37 @@ inductive Result
 /-
   Fill in the implementation to match the semantics described above. If the fuel
   runs out return `Result.timeout`; if there is no valid result according to the
-  semantics then return `Result.error`. -/
+  semantics then return `Result.error`. Use the existing `Exp.eval` for
+  evaluating expressions. -/
+@[simp]
 def clocked_eval (σ : State) (fuel : ℕ) (s : Stmt) : Result :=
   sorry
 
 /-
-  This lemma will be useful for proving the interpreter is correct -/
+  This lemma will be useful for proving the interpreter is correct. Remember
+  about `generalizing` if the induction hypothesis needs to be strengthened. -/
 lemma clocked_eval.monotone
-  {σ₁ σ₂ : State} {s : Stmt} {n₁ : ℕ} (n₂ : ℕ)
-  : clocked_eval σ₁ n₁ s = .normal σ₂ → n₁ ≤ n₂ → clocked_eval σ₁ n₂ s = .normal σ₂
+  {σ₁ σ₂ : State} {s : Stmt} {fuel₁ : ℕ} (fuel₂ : ℕ)
+  : clocked_eval σ₁ fuel₁ s = .normal σ₂ →
+      fuel₁ ≤ fuel₂ → clocked_eval σ₁ fuel₂ s = .normal σ₂
 := by
   sorry
 
+/-
+  HINT: Remember that we have already proven `exp_eval_matches_semantics` and
+  you can use that theorem in this proof, along with `clocked_eval.monotone`
+  that we proved above. When using `clocked_eval.monotone` and `exists`, watch
+  out for "off by one" errors that make the proof impossible. -/
 theorem stmt_eval_matches_semantics
   {σ₁ σ₂ : State} {s : Stmt}
   : BigstepS σ₁ s σ₂ → ∃ n, clocked_eval σ₁ n s = (.normal σ₂)
 := by
   sorry
 
+/-
+  HINT: Remember that we have already proven `exp_semantics_matches_eval` and
+  you can use that theorem in this proof. Remember about `generalizing` if the
+  induction hypothesis needs to be strengthened. -/
 theorem stmt_semantics_matches_eval
   {σ₁ σ₂ : State} {s : Stmt}
   : (∃ n, clocked_eval σ₁ n s = (.normal σ₂)) → BigstepS σ₁ s σ₂

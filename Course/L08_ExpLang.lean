@@ -110,6 +110,7 @@ abbrev Env := AList (fun (_ : Var) => Ty)
   otherwise `none` if there is a type error. The environment `Γ` gives the type
   of each variable. Since we're defining the function as `Exp.check`, we can use
   dot notation for calling it on a `Exp`-type argument. -/
+@[simp]
 def Exp.check (Γ : Env) : Exp → Option Ty
   | .int _ => .some .int    -- integers are type `int`
   | .bool _ => .some .bool  -- booleans are type `bool`
@@ -229,6 +230,7 @@ end Value
 abbrev State := AList (fun (_ : Var) => Value)
 
 /- Interpreter for `Exp` -/
+@[simp]
 def Exp.eval (σ : State) : Exp → Value
   | .int z => .int z
   | .bool b => .bool b
