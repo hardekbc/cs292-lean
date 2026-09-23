@@ -3,6 +3,10 @@
 
   Fill in the `sorry` in the theorems below. Feel free to create additional
   lemmas as you find them helpful.
+
+  HINT: I won't be giving you helpful Mathlib theorems any more, you'll have to
+  look for them using the methods described in the earlier lecture notes such as
+  `L05_ComprehensiveRecap::FINDING_THEOREMS`
 -/
 
 import Course.CourseLib
@@ -89,6 +93,30 @@ lemma mul_eq_append {L₁ L₂ : Language α} {w : List α}
 := by rfl
 
 theorem nullable_is_correct {R : Re α} : R.nullable ↔ [] ∈ R.L := by
+  sorry
+
+/-
+  A potentially useful lemma (you don't need to prove this if it doesn't turn
+  out to be helpful) -/
+lemma append_nonempty_eq_cons
+  {α : Type} {as bs cs : List α} {a : α}
+  (h1 : as ++ bs = a :: cs)
+  (h2 : as ≠ [])
+  : ∃ ds, as = a :: ds
+:= by
+  sorry
+
+/-
+  A potentially useful lemma (you don't need to prove this if it doesn't turn
+  out to be helpful) -/
+lemma flatten_nonempty_eq_cons
+  {α : Type} [DecidableEq α]
+  {ℓℓ : List (List α)} {as : List α} {a : α}
+  (h1 : ℓℓ ≠ [])
+  (h2 : ∀ ℓ ∈ ℓℓ, ℓ ≠ [])
+  (h3 : a :: as = ℓℓ.flatten)
+  : ∃ bs, ℓℓ.head h1 = a :: bs
+:= by
   sorry
 
 theorem deriv_is_correct
