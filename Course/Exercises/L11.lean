@@ -55,7 +55,7 @@ where
     have := M.σ_deq_fin.1
     let next := states.sup (M.δ · none)
     let acc := next ∪ states
-    if acc.card ≤ states.card then states else ε_closure (states ∪ next)
+    if acc.card ≤ states.card then states else ε_closure (next ∪ states)
   termination_by
     have := M.σ_deq_fin.2
     (Fintype.card M.σ) - states.card
