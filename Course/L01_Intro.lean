@@ -207,7 +207,7 @@ def add2 : ℤ → ℤ :=
 
 /-
   `#check` shows the type of an expression -/
-#check add2
+#check (add2)
 #check add2 3
 
 /-
