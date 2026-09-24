@@ -9,6 +9,17 @@
 import Course.CourseLib
 
 topic::V1
+/-
+  HINT:
+
+  - This is the most complicated of the three approaches; it will require you to manipulate the types and use proofs to convince Lean that everything type checks
+
+  - For _some_ of the pattern-matches on `Vec` you'll want to simultaneously pattern-match on `n` (the size of the `Vec`) in order to have the necessary information in each branch
+
+  - Remember that you can propagate givens about the results of conditional guards or pattern-matches by using `h :` in the guard or expression being matched, as described in `L05_ComprehensiveRecap` when talking about well-founded recursion
+
+  - For some of the functions the type of your result may be equivalent, but not identical, to the type that Lean is expecting (e.g., `n + 0` instead of `n`). You can enter tactic mode and use `rw` to modify the expected type, then `exact` to give the actual result. In `L12_DExpLang` we'll see a more convenient way to do the same thing that doesn't require tactics.
+-/
 
 inductive Vec (α : Type) : ℕ → Type
   | nil : Vec α 0
@@ -16,28 +27,30 @@ inductive Vec (α : Type) : ℕ → Type
 
 namespace Vec
 
-variable {α β : Type} {n m : ℕ}
+variable {α β : Type}
 
-def head (v : Vec α (n+1)) : α :=
+def head {n: ℕ} (v : Vec α (n+1)) : α :=
   sorry
 
-def tail (v : Vec α (n+1)) : Vec α n :=
+def tail {n: ℕ} (v : Vec α (n+1)) : Vec α n :=
   sorry
 
-def get (v : Vec α n) (i : Fin n) : α :=
+def get {n: ℕ} (v : Vec α (n+1)) (i : Fin (n+1)) : α :=
   sorry
 
-def zip (v₁ : Vec α n) (v₂ : Vec β n) : Vec (α × β) n :=
+def zip {n : ℕ} (v₁ : Vec α n) (v₂ : Vec β n) : Vec (α × β) n :=
   sorry
 
-def append (v₁ : Vec α n) (v₂ : Vec α m) : Vec α (n+m) :=
+def append {n m : ℕ} (v₁ : Vec α n) (v₂ : Vec α m) : Vec α (n+m) :=
   sorry
 
-def replicate (v : Vec α n) (num : ℕ) : Vec α (n * num) :=
+def replicate (a : α) (num : ℕ) : Vec α num :=
   sorry
 
-def filter (v : Vec α n) (P : α → Bool) : Σ k, Vec α k :=
+def filter {n: ℕ} (v : Vec α n) (P : α → Bool) : Σ k, Vec α k :=
   sorry
+
+/- --- TESTS --- -/
 
 def v₁ : Vec ℕ 3 := .cons 1 (.cons 2 (cons 3 .nil))
 def v₂ : Vec ℕ 2 := .cons 4 (.cons 5 .nil)
@@ -59,9 +72,9 @@ def v₃ : Vec Bool 3 := .cons true (.cons false (cons true .nil))
 #guard_msgs in
 #eval (v₁.append v₂).get (3 : Fin 5)
 
-/-- info: 2 -/
+/-- info: "a" -/
 #guard_msgs in
-#eval (v₁.replicate 3).get (7 : Fin 9)
+#eval (replicate "a" 3).get (2 : Fin 3)
 
 /-- info: 2 -/
 #guard_msgs in
@@ -96,14 +109,16 @@ def zip (v₁ : Vec α n) (v₂ : Vec β n) : Vec (α × β) n :=
 def append (v₁ : Vec α n) (v₂ : Vec α m) : Vec α (n+m) :=
   sorry
 
-def replicate (v : Vec α n) (num : ℕ) : Vec α (n * num) :=
+def replicate (a : α) (num : ℕ) : Vec α num :=
   sorry
 
 def filter (v : Vec α n) (P : α → Bool) : Σ k, Vec α k :=
   sorry
 
+/- --- TESTS --- -/
+
 def v₁ : Vec ℕ 3 := Vec.mk [1, 2, 3] (by simp)
-def v₂ : Vec ℕ 2 := Vec.mk [1, 2] (by simp)
+def v₂ : Vec ℕ 2 := Vec.mk [4, 5] (by simp)
 def v₃ : Vec Bool 3 := Vec.mk [true, false, true] (by simp)
 
 /-- info: 3 -/
@@ -122,9 +137,9 @@ def v₃ : Vec Bool 3 := Vec.mk [true, false, true] (by simp)
 #guard_msgs in
 #eval (v₁.append v₂).get (3 : Fin 5)
 
-/-- info: 2 -/
+/-- info: "a" -/
 #guard_msgs in
-#eval (v₁.replicate 3).get (7 : Fin 9)
+#eval (replicate "a" 3).get (2 : Fin 3)
 
 /-- info: 2 -/
 #guard_msgs in
@@ -157,11 +172,13 @@ def zip (v₁ : Vec α n) (v₂ : Vec β n) : Vec (α × β) n :=
 def append (v₁ : Vec α n) (v₂ : Vec α m) : Vec α (n+m) :=
   sorry
 
-def replicate (v : Vec α n) (num : ℕ) : Vec α (n * num) :=
+def replicate (a : α) (num : ℕ) : Vec α num :=
   sorry
 
 def filter (v : Vec α n) (P : α → Bool) : Σ k, Vec α k :=
   sorry
+
+/- --- TESTS --- -/
 
 def v₁ : Vec ℕ 3 := fun n =>
   if n = 0 then 1
@@ -192,9 +209,9 @@ def v₃ : Vec Bool 3 := fun n =>
 #guard_msgs in
 #eval (v₁.append v₂).get (3 : Fin 5)
 
-/-- info: 2 -/
+/-- info: "a" -/
 #guard_msgs in
-#eval (v₁.replicate 3).get (7 : Fin 9)
+#eval (replicate "a" 3).get (2 : Fin 3)
 
 /-- info: 2 -/
 #guard_msgs in
