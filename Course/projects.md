@@ -61,7 +61,9 @@ You will submit:
 # Course Project Ideas
 
 Here is a non-comprehensive list of possible projects; feel free to propose
-ideas that are not listed here
+ideas that are not listed here. Be sure to do an online search, both generally
+and specifically in Mathlib, to be sure that there isn't any already-existing
+work that subsumes your proposal.
 
 - Verified functional algorithms and data structures (e.g., from the book "Functional Data Structures and Algorithms"). Note that there some examples of such things in Lean already, and I'll want to see something other than those.
 
