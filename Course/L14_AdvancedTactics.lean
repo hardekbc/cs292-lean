@@ -295,7 +295,7 @@ example {a b} (h : f b = a) : g a = b := by
 /-
   - `@[grind →]` does forwards reasoning: it tells `grind` to to take _all_ the premises of the theorem as a pattern (i.e,. there must be a match for each premise), and on a match add the conclusion of the theorem
 
-  - In the example below we define a relation `le` and a theorem `le_trans` that establishes that `le` is transitive. We annotate the theorem with `@[grind ·]` so that the two premises `le x y` and `le y z` must match, and if they do then `grind` can add the fact `le x z`.
+  - In the example below we define a relation `le` and a theorem `le_trans` that establishes that `le` is transitive. We annotate the theorem with `@[grind →]` so that the two premises `le x y` and `le y z` must match, and if they do then `grind` can add the fact `le x z`.
 
   - We then make use of the annotated theorem in the example proof (comment out the grind annotation on `le_trans` to see the effect on the example proof)
 -/

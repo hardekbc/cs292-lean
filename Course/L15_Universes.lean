@@ -186,8 +186,7 @@ def even_fun (n : ℤ) := n % 2 == 0
 #eval even_fun 43
 
 /-
-  We need to prove that `even_fun` agrees with `even_prop` (I'm cheating a
-  bit by using `grind`, which we haven't covered yet) -/
+  We need to prove that `even_fun` agrees with `even_prop` -/
 theorem even_fun_correct {n : ℤ} : even_fun n ↔ even_prop n := by
   grind [even_fun, even_prop]
 
