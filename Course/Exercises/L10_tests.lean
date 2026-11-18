@@ -24,7 +24,7 @@ def v₃ : Vec Bool 3 := .cons true (.cons false (.cons true .nil))
 
 /-- info: true -/
 #guard_msgs in
-#eval (replicate "a" 3).get (2 : Fin 3) == "a"
+#eval (Vec.replicate "a" 3).get (2 : Fin 3) == "a"
 
 /-- info: true -/
 #guard_msgs in
@@ -97,7 +97,7 @@ def v₃ : Vec Bool 3 := fun n =>
 
 /-- info: true -/
 #guard_msgs in
-#eval (replicate "a" 3).get (2 : Fin 3) == "a"
+#eval (Vec.replicate "a" 3).get (2 : Fin 3) == "a"
 
 /-- info: true -/
 #guard_msgs in
